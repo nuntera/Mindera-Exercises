@@ -1,7 +1,7 @@
-package org.vehicle_rental_shop;
+package com.mindera.mindswap;
 
-import static org.vehicle_rental_shop.VehicleType.CAR;
-import static org.vehicle_rental_shop.Constants.CAR_MAX_SPEED;
+import static com.mindera.mindswap.VehicleType.CAR;
+import static com.mindera.mindswap.Constants.CAR_MAX_SPEED;
 
 
 public class Car extends Vehicle{

@@ -1,6 +1,6 @@
-package org.vehicle_rental_shop;
+package com.mindera.mindswap;
 
-import static org.vehicle_rental_shop.Constants.FUEL_IN_TANK_SHOP_POLICY;
+import static com.mindera.mindswap.Constants.FUEL_IN_TANK_SHOP_POLICY;
 
 
 public class Shop {

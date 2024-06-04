@@ -1,4 +1,4 @@
-package org.vehicle_rental_shop;
+package com.mindera.mindswap;
 
 
 public class Constants {
