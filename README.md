@@ -1,1 +1,0 @@
-# Mindera-Exercises
