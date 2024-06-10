@@ -1,59 +1,51 @@
 package com.mindera.mindswap;
 
 public class Game {
-
     private static final int MIN = 0;
     private static final int MAX = 2;
 
-    private Player player1;
-    private Player player2;
+    private final Player player1;
+    private final Player player2;
 
+    private int roundsCounter;
     private int player1Wins;
     private int player2Wins;
-    private int roundsCounter;
-
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
+        roundsCounter = 0;
         player1Wins = 0;
         player2Wins = 0;
-        roundsCounter = 0;
     }
 
 
     public void start() {
-        System.out.println("Game is starting");
+        System.out.println("Game is starting\n");
 
-        play();
-
-    }
-
-    private void play() {
-
+        roundsCounter++;
         while (player1Wins < 6 && player2Wins < 6 && roundsCounter < 10){
             int player1Choice = RandomGenerator.generate(MIN, MAX);
             int player2Choice = RandomGenerator.generate(MIN, MAX);
 
-            System.out.println("João throws " + Move.getById(player1Choice));
-            System.out.println("Maria throws " + Move.getById(player2Choice));
+            System.out.println(player1.getName() + " throws " + MoveType.getNameById(player1Choice));
+            System.out.println(player2.getName() + " throws " + MoveType.getNameById(player2Choice));
 
-            Player winner = determineWinner(player1Choice, player2Choice);
+            Player winner = determineRoundWinner(player1Choice, player2Choice);
+
+            printRoundWinner(winner);
+
             calculateBestOfTen(winner);
-
-            printWinner(winner);
-
-            roundsCounter++;
-
-            System.out.println(player1Wins);
-            System.out.println(player2Wins);
-            System.out.println(roundsCounter);
         }
-        if (player1Wins > player2Wins){
-            System.out.println(player1.getName() + " wins with " + player1Wins);
-        }else System.out.println(player2.getName() + " wins with " + player2Wins);
+        printsGameWinner();
     }
 
+
+    private void printsGameWinner() {
+        if (player1Wins > player2Wins){
+            System.out.println(player1.getName() + " wins with " + player1Wins + " victories.");
+        }else System.out.println(player2.getName() + " wins with " + player2Wins + " victories.");
+    }
 
     private void calculateBestOfTen(Player winner) {
         if (winner == player1){
@@ -66,37 +58,35 @@ public class Game {
         }
     }
 
-
-    private void printWinner(Player winner) {
-        if(winner==null){
-            System.out.println("Its a tie");
-        } else {
-            System.out.println("Winner is " + winner.getName());
-        }
-    }
-
-
-    private Player determineWinner(int player1Choice, int player2Choice) {
-        if (Move.getById(player1Choice)==Move.getById(player2Choice)){
+    private Player determineRoundWinner(int player1Choice, int player2Choice) {
+        if (MoveType.getById(player1Choice) == MoveType.getById(player2Choice)){
             return null;
         }
-        switch (Move.values()[0]){
-            case Move.ROCK:
-                if (Move.getById(player2Choice) == Move.SCISSORS){
+        switch (MoveType.values()[0]){
+            case MoveType.ROCK:
+                if (MoveType.getById(player2Choice) == MoveType.SCISSORS){
                     return player1;
                 }
                 return player2;
-            case Move.SCISSORS:
-                if (Move.getById(player2Choice) == Move.PAPER){
+            case MoveType.SCISSORS:
+                if (MoveType.getById(player2Choice) == MoveType.PAPER){
                     return player1;
                 }
                 return player2;
-            case Move.PAPER:
-                if (Move.getById(player2Choice) == Move.ROCK){
+            case MoveType.PAPER:
+                if (MoveType.getById(player2Choice) == MoveType.ROCK){
                     return player1;
                 }
                 return player2;
         }
         return null;
+    }
+
+    private void printRoundWinner(Player winner) {
+        if(winner==null){
+            System.out.println("Its a tie\n");
+        } else {
+            System.out.println("Winner is " + winner.getName() + "\n");
+        }
     }
 }
