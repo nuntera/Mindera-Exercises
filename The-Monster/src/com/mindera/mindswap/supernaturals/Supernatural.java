@@ -1,8 +1,6 @@
 package com.mindera.mindswap.supernaturals;
 
 
-import java.util.Random;
-
 public abstract class Supernatural {
     private String name;
     private int attackDamage;
@@ -12,6 +10,10 @@ public abstract class Supernatural {
         this.attackDamage = attackDamage;
     }
 
+
+    public int attack() {
+        return getAttackDamage();
+    }
 
     public void displayDetails() {
         System.out.println("Name: " + name);

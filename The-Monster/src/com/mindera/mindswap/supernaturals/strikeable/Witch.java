@@ -1,6 +1,7 @@
 package com.mindera.mindswap.supernaturals.strikeable;
 
 import com.mindera.mindswap.supernaturals.Supernatural;
+import com.mindera.mindswap.supernaturals.strikeable.monsters.Monster;
 
 
 public class Witch extends Supernatural implements Strikeable{
@@ -22,14 +23,14 @@ public class Witch extends Supernatural implements Strikeable{
          */
     }
 
-
+    @Override
     public void receiveDamage(int damage) {
-        return;
+        this.health -= damage / 2;
+        if (this.health < 0) {
+            this.health = 0;
+        }
     }
 
-    public int attack() {
-        return getAttackDamage();
-    }
 
     public int getHealth() {
         return health;

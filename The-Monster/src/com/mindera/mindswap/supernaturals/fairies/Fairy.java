@@ -9,8 +9,4 @@ public class Fairy extends Supernatural {
         super(name, attackDamage);
     }
 
-
-    public int attack() {
-        return getAttackDamage();
-    }
 }

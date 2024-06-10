@@ -1,23 +1,103 @@
 package com.mindera.mindswap;
 
+import com.mindera.mindswap.supernaturals.strikeable.Strikeable;
+import java.util.Random;
+
 
 public class Game {
     private Player player1;
     private Player player2;
+    private Deck cardDeck;
+    private Random random;
 
     public Game(Player player1, Player player2){
         this.player1 = player1;
         this.player2 = player2;
+        cardDeck = new Deck();
+        random = new Random();
     }
 
 
+    private void performRound() {
+        Player attacker = random.nextBoolean() ? player1 : player2;
+        Player defender = attacker == player1 ? player2 : player1;
+
+        Card attackingCard = attacker.getRandomMonsterCard();
+        attackingCard.displayCardDetails();
+
+        //Card attackingCard = attacker.getRandomMonsterCard();
+        //attackingCard.displayCardDetails();
+
+        //Card defendingCard = defender.getRandomMonsterCard();
+        //defendingCard.displayCardDetails();
+
+        //System.out.println(attackingCard.getMonster());
+        //System.out.println(defendingCard.getMonster());
+
+        /*
+        int damage = attackingCard.getMonster().attack();
+        System.out.println(damage);
+
+        if (defendingCard.getMonster() instanceof Strikeable) {
+            ((Strikeable) defendingCard).receiveDamage(damage);
+            System.out.println(attacker.getName() + "'s " + attackingCard.getClass().getSimpleName() + " attacks " +
+                    defender.getName() + "'s " + defendingCard.getClass().getSimpleName() + " for " + damage + " damage.");
+            System.out.println(defender.getName() + "'s " + defendingCard.getClass().getSimpleName() + " now has " + ((Strikeable) defendingCard).getHealth() + " health.");
+        } else {
+            System.out.println(defender.getName() + "'s " + defendingCard.getClass().getSimpleName() + " cannot receive damage.");
+        }
+
+         */
+
+
+
+        //defendingCard.getSupernatural()   //receiveDamage(damage);
+
+        //Supernatural
+        //int damage = attackingCard.attack();
+
+
+        /*
+        Card attackingCard = attacker.getRandomMonsterCard();
+        Card defendingCard = defender.getRandomMonsterCard();
+
+        Monster attackingMonster = (Monster) attackingCard.getBeing();
+        Monster defendingMonster = (Monster) defendingCard.getBeing();
+
+        int damage = attackingMonster.attack();
+        defendingMonster.receiveDamage(damage);
+
+        System.out.println(attacker.getName() + "'s " + attackingMonster.getType() + " attacks " + defender.getName() + "'s " + defendingMonster.getType() + " for " + damage + " damage.");
+        System.out.println(defender.getName() + "'s " + defendingMonster.getType() + " now has " + defendingMonster.getHealth() + " health.");
+         */
+        // You can add conditions to remove cards when their health drops to 0, and also determine the end of the game.
+    }
+
+    private void distributeCardsTo(Player player1, Player player2, Deck cardDeck) {
+        // Distribute cards to players
+        Card[] cards = cardDeck.getCards();
+        int halfDeckSize = cards.length / 2;
+
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] != null) {
+                if (i < halfDeckSize){
+                    player1.addCard(cards[i]);
+                } else {
+                    player2.addCard(cards[i]);
+                }
+            }
+        }
+    }
+
     public void start() {
         System.out.println("Starting the game!");
+        distributeCardsTo(this.player1, this.player2, cardDeck);
 
-        this.player1.displayCards();
+        performRound();
 
-        this.player2.displayCards();
-
+        //cardDeck.displayDeck();
+        //this.player1.displayCards();
+        //this.player2.displayCards();
 
     }
 }

@@ -1,17 +1,16 @@
 package com.mindera.mindswap;
 
+import com.mindera.mindswap.supernaturals.strikeable.monsters.*;
 
-import com.mindera.mindswap.supernaturals.SupernaturalType;
 
 public class Deck {
     private Card[] cards;
     private int currentIndex;
 
     public Deck(){
-        cards = new Card[10]; // Fixed size
+        cards = new Card[6]; // Fixed size
         currentIndex = 0;
-        initializeDeck();
-
+        initializePlayersDeck();
     }
 
 
@@ -24,16 +23,10 @@ public class Deck {
         }
     }
 
-    private void initializeDeck() {
+    private void initializePlayersDeck() {
         // Add monster cards to deck
-        for (SupernaturalType supernaturalType : SupernaturalType.values()) {
-            addCard(new Card(supernaturalType.getSupernatural()));
-            /*
-            if (!supernaturalType.isObstacle()) {
-                addCard(new Card(supernaturalType.getSupernatural()));
-            }
-
-             */
+        for (MonsterType monsterType : MonsterType.values()) {
+            addCard(new Card(monsterType.getType()));
         }
     }
 

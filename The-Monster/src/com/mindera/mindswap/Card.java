@@ -1,21 +1,20 @@
 package com.mindera.mindswap;
 
-import com.mindera.mindswap.supernaturals.Supernatural;
+import com.mindera.mindswap.supernaturals.strikeable.monsters.Monster;
 
 
 public class Card {
-    private Supernatural supernatural;
+    private Monster monster;
     private boolean isPlayed;
 
-
-    public Card(Supernatural supernatural) {
-        this.supernatural = supernatural;
-        this.isPlayed = false;
+    public Card(Monster monster) {
+        this.monster = monster;
+        isPlayed = false;
     }
 
 
     public void displayCardDetails() {
-        supernatural.displayDetails();
+        this.monster.displayDetails();
         System.out.println("Is Played: " + isPlayed);
     }
 
@@ -23,6 +22,10 @@ public class Card {
         isPlayed = true;
     }
 
+
+    public Monster getMonster() {
+        return monster;
+    }
 
     public boolean isPlayed() {
         return isPlayed;
