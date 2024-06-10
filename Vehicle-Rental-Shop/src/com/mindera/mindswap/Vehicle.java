@@ -2,16 +2,14 @@ package com.mindera.mindswap;
 
 import static com.mindera.mindswap.Constants.FUEL_IN_TANK_SHOP_POLICY;
 
-
 public abstract class Vehicle {
     private VehicleType type;
     private String model;
-    private int gasConsumption; // Km/L
-    private int maxSpeed;// Km/Hour
+    private int gasConsumption; // Km/l
+    private int maxSpeed;// Km/hour
     private double availableFuel;
 
-
-    public Vehicle(VehicleType type, String model, int gasConsumption, int maxSpeed){
+    protected Vehicle(VehicleType type, String model, int gasConsumption, int maxSpeed){
         this.type = type;
         this.model = model;
         this.gasConsumption = gasConsumption;

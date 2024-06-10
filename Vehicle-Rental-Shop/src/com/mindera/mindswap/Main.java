@@ -13,10 +13,10 @@ public class Main {
             Shop rentalShop = new Shop();
             rentalShop.displayAvailableVehicles();
 
-            VehicleList rentedCar1 = rentalShop.rentVehicle(VehicleType.CAR);
-            VehicleList rentedMotorcycle1 = rentalShop.rentVehicle(VehicleType.MOTORCYCLE);
-            VehicleList rentedCar2 = rentalShop.rentVehicle(VehicleType.CAR);
-            VehicleList rentedMotorcycle2 = rentalShop.rentVehicle(VehicleType.MOTORCYCLE);
+            VehicleEnum rentedCar1 = rentalShop.rentVehicle(VehicleType.CAR);
+            VehicleEnum rentedMotorcycle1 = rentalShop.rentVehicle(VehicleType.MOTORCYCLE);
+            VehicleEnum rentedCar2 = rentalShop.rentVehicle(VehicleType.CAR);
+            VehicleEnum rentedMotorcycle2 = rentalShop.rentVehicle(VehicleType.MOTORCYCLE);
 
             Trip carTrip1 = new Trip(rentedCar1.getVehicle(), 300, 3);
             System.out.println(carTrip1);
@@ -37,7 +37,7 @@ public class Main {
     }
 
 
-    private static void canPerformTrip(Trip trip, Shop shop, VehicleList vehicle) {
+    private static void canPerformTrip(Trip trip, Shop shop, VehicleEnum vehicle) {
         if (!trip.canMeetSpeedRequirement()){
             System.out.println(vehicle.getVehicle().getModel() + " don't have the necessary speed to perform trip.");
             shop.returnVehicle(vehicle.getVehicle());
@@ -56,7 +56,7 @@ public class Main {
         System.out.println("Fuel reduced by " + requiredFuel + " liters. New fuel level: " + newFuelLevel + " liters.");
     }
 
-    private static void startTrip(Trip trip, Shop shop, VehicleList vehicle) {
+    private static void startTrip(Trip trip, Shop shop, VehicleEnum vehicle) {
         System.out.println("Start the trip");
         reduceAvailableFuel(trip);
 

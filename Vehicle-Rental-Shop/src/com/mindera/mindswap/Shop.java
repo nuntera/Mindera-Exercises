@@ -1,21 +1,18 @@
 package com.mindera.mindswap;
 
-
 import static com.mindera.mindswap.Constants.FUEL_IN_TANK_SHOP_POLICY;
 
-
 public class Shop {
-    private VehicleList[] availableVehicles;
+    private VehicleEnum[] availableVehicles;
     private boolean[] isRented;
 
     public Shop() {
-        availableVehicles = VehicleList.values();
+        availableVehicles = VehicleEnum.values();
         isRented = new boolean[availableVehicles.length];
     }
 
 
     public void displayAvailableVehicles(){
-        System.out.println("\n---------class shop---------\n");
         System.out.println("Available Vehicles");
         for (int i = 0; i < availableVehicles.length; i++) {
             if (!isRented[i]){
@@ -24,7 +21,7 @@ public class Shop {
         }
     }
 
-    public VehicleList rentVehicle(VehicleType type) {
+    public VehicleEnum rentVehicle(VehicleType type) {
         for (int i = 0; i < availableVehicles.length; i++) {
             if (availableVehicles[i].getVehicle().getType() == type && !isRented[i]){
                 System.out.println("Rented a: " + availableVehicles[i].getVehicle().getModel());
@@ -46,7 +43,7 @@ public class Shop {
                     System.out.println(vehicle.getModel() + " cannot be returned. The fuel tank must be exactly " +
                             FUEL_IN_TANK_SHOP_POLICY + " liters.");
                     // Implementation - do a random to refuel or return vehicle and charge the missing fuel.
-                    int randomInt = (int) ((Math.random() * 2));
+                    int randomInt = (int) (Math.random() * 2);
                     if (randomInt < 1) {
                         double requiredFuel = (FUEL_IN_TANK_SHOP_POLICY - vehicle.getAvailableFuel());
                         double chargedAmount = (requiredFuel * 2.5);
