@@ -1,4 +1,6 @@
 
-l	java:S106"+Replace this use of System.out by a logger.(­„Ö@8ğâ2J$70bf6450-5b77-4d71-9a12-8fd4e43ef053
-|
-java:S3400"9Remove this method and declare a constant for this value.(ÒÏï8¦ãè2J$bb55f1cb-fc90-4da6-8265-94e89942fb13
+L	java:S106
+"+Replace this use of System.out by a logger.(‚îŒøÿÿÿÿ8ÜŠ –2
+F	java:S106"+Replace this use of System.out by a logger.(­„Ö@8ÜŠ –2
+V
+java:S3400"9Remove this method and declare a constant for this value.(œúê¦8İŠ –2

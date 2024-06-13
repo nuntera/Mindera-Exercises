@@ -20,9 +20,7 @@ public class WordHistogram implements Iterable<String> {
             }
             this.wordHistogram.put(word, 1);
         }
-        for (String word : wordHistogram.keySet())
-            System.out.println(wordHistogram.get(word));
-        }
+    }
 
 
     public Integer get(String word) {
