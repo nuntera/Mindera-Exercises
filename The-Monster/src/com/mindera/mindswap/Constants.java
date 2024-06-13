@@ -4,13 +4,13 @@ public class Constants {
     // Characters Features
     // WEREWOLF
     public static final String WEREWOLF_NAME = "Werewolf";
-    public static final int WEREWOLF_HEALTH = 100;
+    public static final int WEREWOLF_HEALTH = 5;
     public static final int WEREWOLF_ATTACK_DAMAGE = 15;
     //public static final boolean WEREWOLF_IS_OBSTACLE = false;
     //public static final boolean WEREWOLF_IS_STRIKEABLE = true;
     // VAMPIRE
     public static final String VAMPIRE_NAME = "Vampire";
-    public static final int VAMPIRE_HEALTH = 100;
+    public static final int VAMPIRE_HEALTH = 5;
     public static final int VAMPIRE_ATTACK_DAMAGE = 10;
     //public static final boolean VAMPIRE_IS_OBSTACLE = false;
     //public static final boolean VAMPIRE_IS_STRIKEABLE = true;
@@ -18,7 +18,7 @@ public class Constants {
     public static final double VAMPIRE_BITE_CHANCE = 0.5;
     // MUMMY
     public static final String MUMMY_NAME = "Mummy";
-    public static final int MUMMY_HEALTH = 100;
+    public static final int MUMMY_HEALTH = 5;
     public static final int MUMMY_ATTACK_DAMAGE = 10;
     //public static final boolean MUMMY_IS_OBSTACLE = false;
     //public static final boolean MUMMY_IS_STRIKEABLE = true;

@@ -10,6 +10,10 @@ public class Main {
         Game monsterGame = new Game(player1, player2);
         // get the number of initial cards
 
+        // after the starting number of cards send the number to list monsters
+        player1.giveMonstersToPlayer(2);
+        player2.giveMonstersToPlayer(2);
+
         // game start
         monsterGame.start();
     }

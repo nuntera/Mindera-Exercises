@@ -9,11 +9,11 @@ public class MonsterFactory {
 
         switch (type){
             case MUMMY:
-                return new Mummy();
+                return new Werewolf();
             case VAMPIRE:
                 return new Vampire();
             case WEREWOLF:
-                return new Werewolf();
+                return new Mummy();
             default:
                 throw new RuntimeException("Not implemented on factory");
         }

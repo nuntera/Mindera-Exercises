@@ -1,23 +1,66 @@
 package com.mindera.mindswap;
 
-import com.mindera.mindswap.supernaturals.Supernatural;
+import com.mindera.mindswap.supernaturals.strikeable.MonsterFactory;
 import com.mindera.mindswap.supernaturals.strikeable.monsters.Monster;
+import com.mindera.mindswap.supernaturals.strikeable.monsters.MonsterType;
 
 import java.util.Random;
 
 
 public class Player {
     private String name;
-    private Card[] cards;
-    private int cardCount;
+    private int monsterCount;
     private Random random;
+    private Monster[] monsters;
 
     public Player(String name){
         this.name = name;
-        cards = new Card[3]; // Fixed size
-        cardCount = 0;
+        monsterCount = 0;
         random = new Random();
     }
+
+
+    public void giveMonstersToPlayer(int numberOfMonstersToPlay) {
+        // Add monsters to player
+        monsters = new Monster[numberOfMonstersToPlay];
+        MonsterType[] array = MonsterType.values();
+
+        for (int i = 0; i < monsters.length; i++) {
+            MonsterType monsterType = array[random.nextInt(array.length)];
+            monsters[i] = MonsterFactory.generate(monsterType);
+        }
+        monsterCount = monsters.length;
+    }
+
+    public Monster getRandomMonster() {
+        if (monsterCount < 1 ) {
+            throw new IllegalArgumentException("No Monsters left to play");
+        }
+        for (Monster monster : getMonsters()) {
+            if (monster.isPlayed() && --monsterCount < 1) {
+                    throw new IllegalArgumentException("No Monsters left to play");
+                }
+        }
+        int randomIndex = random.nextInt(monsters.length);
+        while (monsters[randomIndex].isPlayed()) {
+            randomIndex = random.nextInt(monsters.length);
+        }
+        return monsters[randomIndex];
+    }
+
+    public void playMonster(Monster monster) {
+        monster.play();
+        System.out.println(monster.isPlayed());
+
+
+    }
+
+
+    public Monster[] getMonsters() {
+        return monsters;
+    }
+
+    /*
 
     // get a random !isObstacle already filtered in class DECK on initializeDeck()
     public Card getRandomMonsterCard() {
@@ -61,4 +104,6 @@ public class Player {
     public Card[] getCards() {
         return cards;
     }
+
+     */
 }

@@ -1,20 +1,67 @@
 package com.mindera.mindswap;
 
-import com.mindera.mindswap.supernaturals.strikeable.Strikeable;
-import java.util.Random;
+import com.mindera.mindswap.supernaturals.strikeable.monsters.Monster;
 
+import java.util.Random;
 
 public class Game {
     private Player player1;
     private Player player2;
-    private Deck cardDeck;
     private Random random;
 
     public Game(Player player1, Player player2){
         this.player1 = player1;
         this.player2 = player2;
-        cardDeck = new Deck();
         random = new Random();
+    }
+
+
+    public void start() {
+        System.out.println("Starting the game!");
+
+        System.out.println(player1.getMonsters().length);
+        System.out.println(player2.getMonsters().length);
+
+        Monster attackingMonster = player1.getRandomMonster();
+        System.out.println(attackingMonster.getMonsterType());
+
+        player1.playMonster(attackingMonster);
+        int attackDamage = attackingMonster.getAttackDamage();
+
+
+        Monster defendingMonster = player2.getRandomMonster();
+        System.out.println(defendingMonster.getMonsterType());
+
+        player2.playMonster(defendingMonster);
+        defendingMonster.receiveDamage(attackDamage);
+        defendingMonster.receiveDamage(attackDamage);
+
+        System.out.println("Health " + defendingMonster.getHealth());
+
+
+        //determineResult(attackingMonster, defendingMonster);
+
+
+        Monster attackingMonster2 = player1.getRandomMonster();
+        System.out.println(attackingMonster2.getMonsterType());
+        player1.playMonster(attackingMonster2);
+
+        Monster defendingMonster2 = player2.getRandomMonster();
+        System.out.println(defendingMonster2.getMonsterType());
+        player2.playMonster(defendingMonster2);
+
+
+        //System.out.println(Arrays.toString(player1.getMonsters()));
+
+
+        //distributeCardsTo(this.player1, this.player2);
+
+        //performRound();
+
+        //cardDeck.displayDeck();
+        //this.player1.displayCards();
+        //this.player2.displayCards();
+
     }
 
 
@@ -22,8 +69,8 @@ public class Game {
         Player attacker = random.nextBoolean() ? player1 : player2;
         Player defender = attacker == player1 ? player2 : player1;
 
-        Card attackingCard = attacker.getRandomMonsterCard();
-        attackingCard.displayCardDetails();
+        //Card attackingCard = attacker.getRandomMonsterCard();
+        //attackingCard.displayCardDetails();
 
         //Card attackingCard = attacker.getRandomMonsterCard();
         //attackingCard.displayCardDetails();
@@ -73,6 +120,8 @@ public class Game {
         // You can add conditions to remove cards when their health drops to 0, and also determine the end of the game.
     }
 
+    /*
+
     private void distributeCardsTo(Player player1, Player player2, Deck cardDeck) {
         // Distribute cards to players
         Card[] cards = cardDeck.getCards();
@@ -89,15 +138,5 @@ public class Game {
         }
     }
 
-    public void start() {
-        System.out.println("Starting the game!");
-        distributeCardsTo(this.player1, this.player2, cardDeck);
-
-        performRound();
-
-        //cardDeck.displayDeck();
-        //this.player1.displayCards();
-        //this.player2.displayCards();
-
-    }
+     */
 }
