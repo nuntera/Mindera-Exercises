@@ -1,10 +1,13 @@
 package academy.mindswap;
 
 import academy.mindswap.field.Field;
+import academy.mindswap.field.Position;
 import academy.mindswap.gameobjects.fruit.Fruit;
 import academy.mindswap.gameobjects.snake.Direction;
 import academy.mindswap.gameobjects.snake.Snake;
 import com.googlecode.lanterna.input.Key;
+
+import java.util.Random;
 
 
 public class Game {
@@ -20,10 +23,9 @@ public class Game {
     }
 
     public void start() throws InterruptedException {
+        generateFruit(); // uncomment when it's time to introduce fruits
 
-        // generateFruit(); // uncomment when it's time to introduce fruits
-
-        while (true) {
+        while (snake.isAlive()) {
             Thread.sleep(delay);
             Field.clearTail(snake);
             moveSnake();
@@ -33,6 +35,18 @@ public class Game {
     }
 
     private void generateFruit() {
+        int randomHeightPosition = RandomGenerator.generate(1, Field.getHeight() + 1);
+        int randomWidthPosition = RandomGenerator.generate(1, Field.getWidth() + 1);
+
+        Fruit fruit = new Fruit(new Position(randomHeightPosition, randomWidthPosition));
+
+        //if (fruit.getPosition() != snake.getFullSnake())
+
+            //Field.drawFruit(fruit);
+
+
+
+
     }
 
     private void moveSnake() {
@@ -62,6 +76,9 @@ public class Game {
     }
 
     private void checkCollisions() {
-
+        if (snake.getHead().getCol() == 0 || snake.getHead().getRow() == 0 ||
+            snake.getHead().getCol() == Field.getWidth() - 1 || snake.getHead().getRow() == Field.getHeight() - 1) {
+            snake.die();
+        }
     }
 }
