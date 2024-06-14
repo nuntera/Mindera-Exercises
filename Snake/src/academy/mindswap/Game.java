@@ -7,11 +7,7 @@ import academy.mindswap.gameobjects.snake.Direction;
 import academy.mindswap.gameobjects.snake.Snake;
 import com.googlecode.lanterna.input.Key;
 
-import java.util.Random;
-
-
 public class Game {
-
     private Snake snake;
     private Fruit fruit;
     private int delay;
@@ -22,6 +18,7 @@ public class Game {
         this.delay = delay;
     }
 
+
     public void start() throws InterruptedException {
         generateFruit(); // uncomment when it's time to introduce fruits
 
@@ -31,22 +28,17 @@ public class Game {
             moveSnake();
             checkCollisions();
             Field.drawSnake(snake);
-            System.out.println(snake.getHead().getRow());
-            System.out.println(snake.getHead().getCol());
         }
     }
 
     private void generateFruit() {
-        int randomHeightPosition = RandomGenerator.generate(1, Field.getHeight() + 1);
-        int randomWidthPosition = RandomGenerator.generate(1, Field.getWidth() + 1);
+        int row = RandomGenerator.generate(5, Field.getHeight() - 3);
+        int column = RandomGenerator.generate(5, Field.getWidth() - 3);
+        System.out.println("row = " + row);
+        System.out.println("column = " + column);
+        this.fruit = new Fruit(new Position(column, row));
 
-        Fruit fruit = new Fruit(new Position(randomHeightPosition, randomWidthPosition));
-
-        //if (fruit.getPosition() != snake.getFullSnake())
-
-            //Field.drawFruit(fruit);
-
-
+        Field.drawFruit(fruit);
     }
 
     private void moveSnake() {
@@ -87,6 +79,19 @@ public class Game {
         if (snake.getHead().getCol() == 0 || snake.getHead().getRow() == 0 ||
             snake.getHead().getCol() == Field.getWidth() - 1 || snake.getHead().getRow() == Field.getHeight() - 1) {
             snake.die();
+        }
+
+        for (int i = 1; i < snake.getSnakeSize(); i++) {
+            if (snake.getHead().equals(snake.getFullSnake().get(i))) {
+                snake.die();
+            }
+        }
+
+        System.out.println("Snake:"+snake.getHead());
+        System.out.println("Fruit:"+fruit.getPosition());
+        if (snake.getHead().equals(fruit.getPosition())) {
+            snake.increaseSize();
+            generateFruit();
         }
     }
 }

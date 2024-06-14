@@ -5,28 +5,23 @@ import academy.mindswap.field.Position;
 import java.util.LinkedList;
 
 public class Snake {
-
-    private final static int SNAKE_INITIAL_SIZE = 3;
+    private final static int SNAKE_INITIAL_SIZE = 10;
     private Direction direction;
     private boolean alive;
     private LinkedList<Position> body;
 
 
     public Snake() {
-        this.direction = direction;
         this.alive = true;
         body = new LinkedList<>();
         for (int i = 0; i < SNAKE_INITIAL_SIZE; i++) {
-            body.add(new Position(7, i + 10));
+            body.add(new Position(i + 10, 7));
         }
-        //direction = Direction.RIGHT;
-        //alive = true;
     }
 
 
-
     public void increaseSize() {
-
+        body.add(new Position(this.getTail().getRow(), this.getTail().getCol()));
     }
 
     public void move(Direction direction) {
@@ -44,16 +39,16 @@ public class Snake {
         // Determine new head position based on direction
         switch (direction) {
             case UP:
-                newHead = new Position(head.getRow() - 1, head.getCol());
+                newHead = new Position(head.getCol(), head.getRow()  - 1);
                 break;
             case DOWN:
-                newHead = new Position(head.getRow() + 1, head.getCol());
+                newHead = new Position( head.getCol(), head.getRow() + 1);
                 break;
             case LEFT:
-                newHead = new Position(head.getRow(), head.getCol() - 1);
+                newHead = new Position(head.getCol() - 1, head.getRow());
                 break;
             default:
-                newHead = new Position(head.getRow(), head.getCol() + 1);
+                newHead = new Position(head.getCol() + 1, head.getRow());
                 break;
         }
 
@@ -86,7 +81,6 @@ public class Snake {
     }
 
     public LinkedList<Position> getFullSnake(){
-        System.out.println(body);
         return body;
     }
 
@@ -95,7 +89,15 @@ public class Snake {
     }
 
     public int getSnakeSize() {
-        return 0;
+        return body.size();
+    }
+
+    @Override
+    public String toString() {
+        return "Snake{" +
+                "direction=" + direction +
+                ", alive=" + alive +
+                ", head=" + body.getFirst() +
+                '}';
     }
 }
-
