@@ -13,6 +13,7 @@ public class Snake {
 
 
     public Snake() {
+        this.direction = direction;
         this.alive = true;
         body = new LinkedList<>();
         for (int i = 0; i < SNAKE_INITIAL_SIZE; i++) {
@@ -32,16 +33,18 @@ public class Snake {
         if (direction == null) {
             return;
         }
+
         // Change direction
         this.direction = direction;
 
         // Get the current head position
         Position head = body.getFirst();
         Position newHead;
+
         // Determine new head position based on direction
         switch (direction) {
             case UP:
-                newHead = new Position(head.getRow() -1, head.getCol());
+                newHead = new Position(head.getRow() - 1, head.getCol());
                 break;
             case DOWN:
                 newHead = new Position(head.getRow() + 1, head.getCol());
@@ -49,11 +52,11 @@ public class Snake {
             case LEFT:
                 newHead = new Position(head.getRow(), head.getCol() - 1);
                 break;
-            case RIGHT:
             default:
                 newHead = new Position(head.getRow(), head.getCol() + 1);
                 break;
         }
+
         // Add the new head to the snake's body
         body.addFirst(newHead);
 
@@ -85,6 +88,10 @@ public class Snake {
     public LinkedList<Position> getFullSnake(){
         System.out.println(body);
         return body;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     public int getSnakeSize() {

@@ -31,6 +31,8 @@ public class Game {
             moveSnake();
             checkCollisions();
             Field.drawSnake(snake);
+            System.out.println(snake.getHead().getRow());
+            System.out.println(snake.getHead().getCol());
         }
     }
 
@@ -45,8 +47,6 @@ public class Game {
             //Field.drawFruit(fruit);
 
 
-
-
     }
 
     private void moveSnake() {
@@ -56,19 +56,27 @@ public class Game {
         if (k != null) {
             switch (k.getKind()) {
                 case ArrowUp:
-                    snake.move(Direction.UP);
+                    if (snake.getDirection() != Direction.DOWN) {
+                        snake.move(Direction.UP);
+                    }
                     return;
 
                 case ArrowDown:
-                    snake.move(Direction.DOWN);
+                    if (snake.getDirection() != Direction.UP) {
+                        snake.move(Direction.DOWN);
+                    }
                     return;
 
                 case ArrowLeft:
-                    snake.move(Direction.LEFT);
+                    if (snake.getDirection() != Direction.RIGHT) {
+                        snake.move(Direction.LEFT);
+                    }
                     return;
 
                 case ArrowRight:
-                    snake.move(Direction.RIGHT);
+                    if (snake.getDirection() != Direction.LEFT) {
+                        snake.move(Direction.RIGHT);
+                    }
                     return;
             }
         }
