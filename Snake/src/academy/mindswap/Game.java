@@ -42,37 +42,42 @@ public class Game {
     }
 
     private void moveSnake() {
-
         Key k = Field.readInput();
+        Direction newDirection = null;
 
         if (k != null) {
             switch (k.getKind()) {
                 case ArrowUp:
-                    if (snake.getDirection() != Direction.DOWN) {
-                        snake.move(Direction.UP);
-                    }
-                    return;
+                    newDirection = Direction.UP;
+                    break;
 
                 case ArrowDown:
-                    if (snake.getDirection() != Direction.UP) {
-                        snake.move(Direction.DOWN);
-                    }
-                    return;
+                    newDirection = Direction.DOWN;
+                    break;
 
                 case ArrowLeft:
-                    if (snake.getDirection() != Direction.RIGHT) {
-                        snake.move(Direction.LEFT);
-                    }
-                    return;
+                    newDirection = Direction.LEFT;
+                    break;
 
                 case ArrowRight:
-                    if (snake.getDirection() != Direction.LEFT) {
-                        snake.move(Direction.RIGHT);
-                    }
-                    return;
+                    newDirection = Direction.RIGHT;
+                    break;
+            }
+
+            if (newDirection != null && isValidDirectionChange(newDirection)) {
+                snake.move(newDirection);
+                return;
             }
         }
         snake.move();
+    }
+
+    private boolean isValidDirectionChange(Direction newDirection) {
+        Direction currentDirection = snake.getDirection();
+        return !((currentDirection == Direction.UP && newDirection == Direction.DOWN) ||
+                (currentDirection == Direction.DOWN && newDirection == Direction.UP) ||
+                (currentDirection == Direction.LEFT && newDirection == Direction.RIGHT) ||
+                (currentDirection == Direction.RIGHT && newDirection == Direction.LEFT));
     }
 
     private void checkCollisions() {
