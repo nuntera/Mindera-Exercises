@@ -11,11 +11,13 @@ public class Game {
     private Snake snake;
     private Fruit fruit;
     private int delay;
+    private int score;
 
     public Game(int cols, int rows, int delay) {
         Field.init(cols, rows);
-        snake = new Snake();
         this.delay = delay;
+        snake = new Snake();
+        score = 0;
     }
 
 
@@ -29,6 +31,7 @@ public class Game {
             checkCollisions();
             Field.drawSnake(snake);
         }
+        gameOver();
     }
 
     private void generateFruit() {
@@ -72,6 +75,16 @@ public class Game {
         snake.move();
     }
 
+    private void incrementScore() {
+        score += 10;
+    }
+
+    private void gameOver() {
+        System.out.println("Game Over");
+        System.out.println("Your score: " + score);
+        // Todo - ascii art
+    }
+
     private boolean isValidDirectionChange(Direction newDirection) {
         Direction currentDirection = snake.getDirection();
         return !((currentDirection == Direction.UP && newDirection == Direction.DOWN) ||
@@ -96,7 +109,13 @@ public class Game {
         System.out.println("Fruit:"+fruit.getPosition());
         if (snake.getHead().equals(fruit.getPosition())) {
             snake.increaseSize();
+            incrementScore();
             generateFruit();
         }
+    }
+
+
+    public int getScore() {
+        return score;
     }
 }
