@@ -12,9 +12,10 @@ public class Snake {
 
     public Snake() {
         this.alive = true;
+        direction = Direction.LEFT;
         body = new LinkedList<>();
         for (int i = 0; i < SNAKE_INITIAL_SIZE; i++) {
-            body.add(new Position(i + 10, 7));
+            body.add(new Position(i + 50, 12));
         }
     }
 
@@ -24,10 +25,6 @@ public class Snake {
     }
 
     public void move(Direction direction) {
-        if (direction == null) {
-            return;
-        }
-
         // Change direction
         this.direction = direction;
 

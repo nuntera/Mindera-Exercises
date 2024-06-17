@@ -3,21 +3,27 @@ package academy.mindswap;
 import academy.mindswap.field.Field;
 import academy.mindswap.field.Position;
 import academy.mindswap.gameobjects.fruit.Fruit;
+import academy.mindswap.gameobjects.obstacle.Obstacle;
 import academy.mindswap.gameobjects.snake.Direction;
 import academy.mindswap.gameobjects.snake.Snake;
 import com.googlecode.lanterna.input.Key;
 
 public class Game {
+    private static final int OBSTACLE_INCREMENT = 10;
+    private static final int POINTS_FOR_NEW_OBSTACLE = 30;
+
     private Snake snake;
     private Fruit fruit;
     private int delay;
     private int score;
+    private int nextObstacleScoreThreshold;
 
     public Game(int cols, int rows, int delay) {
         Field.init(cols, rows);
         this.delay = delay;
         snake = new Snake();
         score = 0;
+        nextObstacleScoreThreshold = POINTS_FOR_NEW_OBSTACLE;
     }
 
 
@@ -34,11 +40,23 @@ public class Game {
         gameOver();
     }
 
+    public static void generateObstacles(int numberOfObstacles) {
+        for (int i = 0; i < numberOfObstacles; i++) {
+            int col = RandomGenerator.generate(3, Field.getWidth() - 3);
+            int row = RandomGenerator.generate(3, Field.getHeight() - 3);
+            Position pos = new Position(col, row);
+            Obstacle obstacle = new Obstacle(pos);
+            if (!Field.getObstacles().contains(obstacle)) {
+                Field.drawObstacle(obstacle);
+            }
+        }
+    }
+
     private void generateFruit() {
         int row = RandomGenerator.generate(5, Field.getHeight() - 3);
         int column = RandomGenerator.generate(5, Field.getWidth() - 3);
-        System.out.println("row = " + row);
-        System.out.println("column = " + column);
+        //System.out.println("row = " + row);
+        //System.out.println("column = " + column);
         this.fruit = new Fruit(new Position(column, row));
 
         Field.drawFruit(fruit);
@@ -77,6 +95,13 @@ public class Game {
 
     private void incrementScore() {
         score += 10;
+        // Check if reached the next threshold for adding obstacles
+        if (score >= nextObstacleScoreThreshold) {
+            generateObstacles(OBSTACLE_INCREMENT);
+            nextObstacleScoreThreshold += POINTS_FOR_NEW_OBSTACLE; // Update the threshold for the next increment
+            System.out.println("nextObstacleScoreThreshold: " + nextObstacleScoreThreshold);
+            System.out.println("POINTS_FOR_NEW_OBSTACLE: " + POINTS_FOR_NEW_OBSTACLE);
+        }
     }
 
     private void gameOver() {
@@ -94,19 +119,29 @@ public class Game {
     }
 
     private void checkCollisions() {
+        // Check collision with walls
         if (snake.getHead().getCol() == 0 || snake.getHead().getRow() == 0 ||
             snake.getHead().getCol() == Field.getWidth() - 1 || snake.getHead().getRow() == Field.getHeight() - 1) {
             snake.die();
         }
 
+        // Check collision with snake itself
         for (int i = 1; i < snake.getSnakeSize(); i++) {
             if (snake.getHead().equals(snake.getFullSnake().get(i))) {
                 snake.die();
             }
         }
 
-        System.out.println("Snake:"+snake.getHead());
-        System.out.println("Fruit:"+fruit.getPosition());
+        // Check collision with obstacles
+        for (Obstacle obstacle : Field.getObstacles()) {
+            if (snake.getHead().equals(obstacle.getPosition())) {
+                snake.die();
+            }
+        }
+
+        // Check collision with fruit
+        //System.out.println("Snake:"+snake.getHead());
+        //System.out.println("Fruit:"+fruit.getPosition());
         if (snake.getHead().equals(fruit.getPosition())) {
             snake.increaseSize();
             incrementScore();

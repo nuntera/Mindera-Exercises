@@ -1,6 +1,7 @@
 package academy.mindswap.field;
 
 import academy.mindswap.gameobjects.fruit.Fruit;
+import academy.mindswap.gameobjects.obstacle.Obstacle;
 import academy.mindswap.gameobjects.snake.Snake;
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.input.Key;
@@ -8,17 +9,22 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public final class Field {
 
     private static final String BORDER_STRING = "▒";
     private static final String SNAKE_BODY_STRING = "#";
     private static final String SNAKE_HEAD_STRING = "0";
     private static final String FRUIT_STRING = "@";
+    private static final String OBSTACLE_STRING = "X";
 
     private static int width;
     private static int height;
     private static Screen screen;
     private static ScreenWriter screenWriter;
+    private static Set<Obstacle> obstacles;
 
     private Field() {
     }
@@ -35,6 +41,8 @@ public final class Field {
         screenWriter = new ScreenWriter(screen);
         screen.setCursorPosition(null);
         screen.startScreen();
+
+        obstacles = new HashSet<>();
 
         drawWalls();
         screen.refresh();
@@ -83,6 +91,7 @@ public final class Field {
 
     public static void drawFruit(Fruit fruit) {
         screen.putString(fruit.getPosition().getCol(), fruit.getPosition().getRow(), FRUIT_STRING, Terminal.Color.MAGENTA, null);
+        screen.refresh();
     }
 
     public static int getWidth() {
@@ -91,5 +100,18 @@ public final class Field {
 
     public static int getHeight() {
         return height;
+    }
+
+    // New additions
+    public static void drawObstacle(Obstacle obstacle) {
+        obstacles.add(obstacle);
+        //Position pos = obstacle.getPosition();
+        screen.putString(obstacle.getPosition().getCol(), obstacle.getPosition().getRow(), OBSTACLE_STRING, Terminal.Color.WHITE, null);
+        screen.refresh();
+    }
+
+
+    public static Set<Obstacle> getObstacles() {
+        return obstacles;
     }
 }
