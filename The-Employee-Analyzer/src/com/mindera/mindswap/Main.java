@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
         /*
+               ----------------Requirements------------------
         Create a class capable of analysing a list of department employees.
 
         This class should be able to:
@@ -15,8 +16,8 @@ public class Main {
         Find the first employee older than n
         Find the average salary in a department
         Finding common first names between the employees of two departments
-         */
 
+         */
 
         EmployeeAnalyzer employeeAnalyzer = new EmployeeAnalyzer();
 
@@ -32,8 +33,5 @@ public class Main {
         System.out.println("EmployeeAnalyzer.findAverageSalary() = " + employeeAnalyzer.findAverageSalary(DB.getSalesDepartment()));
         System.out.println("-".repeat(100));
         System.out.println("EmployeeAnalyzer.findCommonNames() = " + employeeAnalyzer.findCommonNames(DB.getDevelopmentDepartment(), DB.getMarketingDepartment()));
-
-
-
     }
 }
