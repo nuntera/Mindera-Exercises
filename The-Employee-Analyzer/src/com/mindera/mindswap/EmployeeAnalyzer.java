@@ -26,17 +26,17 @@ public class EmployeeAnalyzer {
 
     // Find the first employee older than n
     public Optional<Employee> findFirstEmployeeByAge(List<Employee> employees, int age) {
-        return employees.stream().findFirst().filter(e -> e.getAge() > age);
+        return employees.stream().filter(employee -> employee.getAge() > age).min(Comparator.comparingInt(Employee::getAge));
     }
 
     // Find the average salary in a department
     public Double findAverageSalary(List<Employee> employees) {
-        return employees.stream().mapToDouble(Employee::getSalary).average().orElse(0.0);
+        return employees.stream().mapToInt(Employee::getSalary).average().orElse(0.0);
     }
 
     // Finding common first names between the employees of two departments
     public List<String> findCommonNames(List<Employee> firstDepartment, List<Employee> secondDepartment) {
         Set<String> namesFirstDepartment = firstDepartment.stream().map(Employee::getFirstName).collect(Collectors.toSet());
-        return secondDepartment.stream().map(Employee::getFirstName).filter(namesFirstDepartment::contains).distinct().toList();
+        return secondDepartment.stream().map(Employee::getFirstName).distinct().filter(namesFirstDepartment::contains).toList();
     }
 }
